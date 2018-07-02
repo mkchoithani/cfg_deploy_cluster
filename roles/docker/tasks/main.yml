@@ -117,8 +117,8 @@
    - createdockervg.changed
    - docker_var|bool == true
 
-- name: Start Docker service
+- name: Start and enable Docker service
   service:
-    state: started
     name: docker  
-  when: createdockervg.changed
+    state: started
+    enabled: yes
