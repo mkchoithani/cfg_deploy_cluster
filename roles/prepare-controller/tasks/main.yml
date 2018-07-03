@@ -15,6 +15,7 @@
   - "make"
   - "java"
   - "patch"
+  - "httpd-tools"
   
 - name: Getting the openshift-ansible installer from Github
   git:
