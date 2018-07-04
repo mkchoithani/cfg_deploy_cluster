@@ -2,7 +2,7 @@
 - name: Install katello-ca-consumer-latest.noarch.rpm
   become: "True"
   yum:
-    name: "https://{{ redhat_satellite_fqdn }}/pub/katello-ca-consumer-latest.noarch.rpm"
+    name: "http://{{ redhat_satellite_fqdn }}/pub/katello-ca-consumer-latest.noarch.rpm"
 
 - name: Insert CA when it exists
   become: "True"
