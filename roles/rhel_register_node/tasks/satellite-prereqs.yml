@@ -3,9 +3,6 @@
   become: "True"
   yum:
     name: "http://{{ redhat_satellite_fqdn }}/pub/katello-ca-consumer-latest.noarch.rpm"
-  retries: 3
-  delay: 5
-
 
 #- name: Insert CA when it exists
 #  become: "True"
