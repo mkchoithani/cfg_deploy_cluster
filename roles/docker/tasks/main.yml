@@ -116,6 +116,29 @@
   when: 
    - createdockervg.changed
    - docker_var|bool == true
+- block:
+  - name: Set HTTP proxy
+    lineinfile:
+      line: "HTTP_PROXY={{ openshift_http_proxy }}"
+      path: /etc/sysconfig/docker
+    when: openshift_http_proxy is defined
+    notify: restart docker
+  
+  - name: Set HTTPS proxy
+    lineinfile:
+      line: "HTTPS_PROXY={{ openshift_https_proxy }}"
+      path: /etc/sysconfig/docker
+    when: openshift_http_proxy is defined
+    notify: restart docker
+  
+  - name: Set noproxy
+    lineinfile:
+      line: "NO_PROXY={{ openshift_no_proxy }}"
+      path: /etc/sysconfig/docker
+    when: openshift_no_proxy is defined
+    notify: restart docker
+  tags:
+    - docker_proxy
 
 - name: Start and enable Docker service
   service:

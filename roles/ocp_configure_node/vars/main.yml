@@ -31,6 +31,8 @@ packages_to_install:
   - python-passlib
   - firewalld
   - python-firewall
+  - python-ipaddress
+  - yum-utils
 
 #I am version specific and I should be controlled in inventory
 docker_version: 1.13.1

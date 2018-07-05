@@ -5,6 +5,7 @@ MAKEFLAGS += --silent
 setup: setup-ansible setup-roles
 
 # this is not needed here as we do this via playbook
+
 setup-ansible:
 	rm -rf ./openshift-ansible && \
 	git clone https://github.com/openshift/openshift-ansible.git -b release-3.9

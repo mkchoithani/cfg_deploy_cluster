@@ -58,7 +58,7 @@
     - redhat_organization_id is defined
   redhat_subscription:
     state: present
-    autosubscribe: true
+#    autosubscribe: true
     activationkey: "{{ redhat_activationkey }}"
     org_id: "{{ redhat_organization_id }}"
   tags: register_system
