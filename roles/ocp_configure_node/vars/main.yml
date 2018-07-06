@@ -33,6 +33,7 @@ packages_to_install:
   - python-firewall
   - python-ipaddress
   - yum-utils
+  - NetworkManager
 
 #I am version specific and I should be controlled in inventory
 docker_version: 1.13.1

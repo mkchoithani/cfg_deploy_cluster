@@ -4,8 +4,8 @@
 # ensure we are properly subscribed to the repos
 # repo removal and adding does not look good here.
 #without sat6 im very expensive operation from time point of view. move me somehere else
-- include_tasks: subscription_manager_tasks.yml
-  when: ansible_distribution == "RedHat"
+#- include_tasks: subscription_manager_tasks.yml
+#  when: ansible_distribution == "RedHat"
 
 # disable due bug in selinux in newest 7.5 cut. 
 #- name: Update all
@@ -45,6 +45,25 @@
     name: firewalld
     enabled: True
 
+# NM is a prereq for Openshift
+- block:
+  - name: Start and enable NM
+    service:
+      name: NetworkManager
+      state: started
+      enabled: yes
+  
+  - name: Ensure all connections will autoconnect
+    shell: nmcli c m "{{ item }}" connection.autoconnect yes
+    with_items: "{{ ansible_interfaces }}"
+    when: item != 'lo' and item != 'docker0'
+  
+  - name: Disable pseudoservice network
+    service:
+      name: network
+      enabled: no
+  tags:
+    - nm
 # move to separate role
 #- name: Install docker
 #  yum:
