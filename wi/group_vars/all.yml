@@ -1,0 +1,87 @@
+---
+# version of the openshift-ansible installer to use
+openshift_ansible_version: openshift-ansible-3.9.27-1
+
+# version of the docker daemnon install on the nodes
+docker_version: 1.13.1
+
+ansible_user: ec2-user
+ansible_become: yes
+
+git_http_proxy: "http://internet.services.royalmailgroup.net:8080"
+
+repos_to_enable:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rhel-7-server-ose-3.9-rpms
+  - rhel-7-fast-datapath-rpms
+
+gluster_repos:
+  - rhel-7-server-rpms
+  - rhel-7-server-extras-rpms
+  - rh-gluster-3-for-rhel-7-server-rpms
+#  - rh-gluster-3-client-for-rhel-7-server-rpms
+
+# Storage values in GB
+min_storage:
+  master: 5
+  infra: 5
+  compute: 5
+  glusterfs: 5
+
+# Memory values in GB
+min_memory:
+  master: 0.5
+  infra: 0.5
+  compute: 0.5
+  glusterfs: 0.5
+
+min_cpus:
+  master: 1
+  infra: 1
+  compute: 1
+  glusterfs: 1
+
+docker_storage_disk: /dev/sdb
+gluster_device: sdc
+min_gluster_storage: 5
+
+#redhat_username: mjudeiki_internal
+#redhat_password: 11a35c78e2f0fadd007964a2276ffaa1645fe9db
+#redhat_pool_ids: 8a85f98c63842fef0163949e5f9c4be0
+
+redhat_satellite_fqdn: rmulbgosc0001.rmgp.royalmailgroup.net
+redhat_organization_id: RMG
+redhat_activationkey: Non-Production Openshift Cluster
+
+crs_redhat_satellite_fqdn: rmulbgosc0001.rmgp.royalmailgroup.net
+crs_redhat_organization_id: RMG
+crs_redhat_activationkey: Non-Production Gluster Cluster
+
+packages_to_install:
+  - wget
+  - git
+  - net-tools
+  - bind-utils
+  - iptables-services
+  - bridge-utils
+  - bash-completion
+  - kexec-tools
+  - sos
+  - psacct
+  - python-passlib
+  - firewalld
+  - python-firewall
+
+ssh_user: 'ec2-user'
+remote_ssh_user: 'ec2-user'
+
+firewalld_allow_ports:
+  - port: 111/tcp
+  - port: 24007/tcp
+  - port: 24008/tcp
+  - port: 24009-24108/tcp
+  - port: 49152-49664/tcp
+  - port: 111/udp
+  - port: 3260/tcp
+  - port: 22/tcp

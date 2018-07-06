@@ -1,0 +1,59 @@
+[OSEv3:children]
+masters
+nodes
+amos_glusterfs
+glusterfs
+#glusterfs_registry
+etcd
+
+
+[masters]
+master0 ansible_host=rmuacposp0003.rmgp.royalmailgroup.net openshift_node_labels="{'node': 'false', 'region': 'master', 'zone': 'az1'}"
+master1 ansible_host=rmuacposp0002.rmgp.royalmailgroup.net openshift_node_labels="{'node': 'false', 'region': 'master', 'zone': 'az2'}"
+master2 ansible_host=rmuacposp0004.rmgp.royalmailgroup.net openshift_node_labels="{'node': 'false', 'region': 'master', 'zone': 'az3'}"
+
+[etcd]
+etcd0 ansible_host=rmuacposp0003.rmgp.royalmailgroup.net
+etcd1 ansible_host=rmuacposp0002.rmgp.royalmailgroup.net
+etcd2 ansible_host=rmuacposp0004.rmgp.royalmailgroup.net
+
+[infra]
+infra0 ansible_host=rmuacposp0010.rmgp.royalmailgroup.net openshift_node_labels="{'region': 'infra', 'zone': 'az1'}"
+infra1 ansible_host=rmuacposp0011.rmgp.royalmailgroup.net openshift_node_labels="{'region': 'infra', 'zone': 'az2'}"
+infra2 ansible_host=rmuacposp0012.rmgp.royalmailgroup.net openshift_node_labels="{'region': 'infra', 'zone': 'az3'}"
+
+[compute]
+compute0 ansible_host=rmuacposa0001.rmgp.royalmailgroup.net openshift_node_labels="{'node': 'true', 'region': 'primary', 'zone': 'az1'}"
+compute1 ansible_host=rmuacposa0003.rmgp.royalmailgroup.net openshift_node_labels="{'node': 'true', 'region': 'primary', 'zone': 'az2'}"
+compute2 ansible_host=rmuacposa0005.rmgp.royalmailgroup.net openshift_node_labels="{'node': 'true', 'region': 'primary', 'zone': 'az3'}"
+
+#we overwrite those in glusterfs play entry point
+[amos_glusterfs]
+storage0 ansible_host=rmuacposp0009.rmgp.royalmailgroup.net 
+storage1 ansible_host=rmuacposp0008.rmgp.royalmailgroup.net 
+storage2 ansible_host=rmuacposp0007.rmgp.royalmailgroup.net 
+
+#[glusterfs_registry]
+#storage3 ansible_host=cns-3.devops.amostest.com openshift_node_labels="{'node': 'true', 'region': 'primary', 'zone': 'az1'}"
+#storage4 ansible_host=cns-4.devops.amostest.com openshift_node_labels="{'node': 'true', 'region': 'primary', 'zone': 'az2'}"
+#storage5 ansible_host=cns-5.devops.amostest.com openshift_node_labels="{'node': 'true', 'region': 'primary', 'zone': 'az3'}"
+
+
+[amos_router]
+route0 ansible_host=rmuacposp0005.rmgp.royalmailgroup.net openshift_node_labels="{'node': 'true', 'region': 'router', 'zone': 'az1'}"
+route1 ansible_host=rmuacposp0006.rmgp.royalmailgroup.net openshift_node_labels="{'node': 'true', 'region': 'router', 'zone': 'az2'}"
+
+[nodes:children]
+masters
+compute
+infra
+etcd
+amos_router
+
+[controller]
+controller1 ansible_host=rmulbgosc0002.rmgp.royalmailgroup.net
+
+[bastion]
+bastion1 ansible_host=rmulbgosc0002.rmgp.royalmailgroup.net
+
+[glusterfs]
